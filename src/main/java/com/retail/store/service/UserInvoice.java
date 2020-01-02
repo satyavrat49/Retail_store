@@ -15,6 +15,10 @@ public class UserInvoice {
 		this.products = invoiceBuilder.products;
 		this.totalAmount = invoiceBuilder.totalAmount + "$";
 	}
+	
+	public String getTotalAmount() {
+		return this.totalAmount;
+	}
 
 	public static class InvoiceBuilder {
 		private final List<com.retail.store.product.Product> products;
