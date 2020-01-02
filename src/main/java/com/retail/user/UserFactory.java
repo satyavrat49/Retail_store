@@ -12,11 +12,8 @@ public class UserFactory {
 		case "affiliate":
 			user = new Affiliate(name);
 			break;
-		case "customer":
-			user = new Customer(name, date);
-			break;
 		default:
-			user = new Customer(name, new Date());
+			user = new Customer(name, date);
 		}
 		return user;
 	}
