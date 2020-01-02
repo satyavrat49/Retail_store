@@ -10,14 +10,12 @@ import com.retail.user.User;
 
 @Service
 public class InvoiceService {
-	public void createInvoice(User user,List<Product> listOfProducts) {
-		InvoiceBuilder InvoiceBuilder=	 new InvoiceBuilder(listOfProducts,user);
-		UserInvoice userInvoice=	InvoiceBuilder.buildUserUserInvoice();
+	public UserInvoice createInvoice(User user, List<Product> listOfProducts) {
+		InvoiceBuilder InvoiceBuilder = new InvoiceBuilder(listOfProducts, user);
+		UserInvoice userInvoice = InvoiceBuilder.buildUserUserInvoice();
 		System.out.println(userInvoice);
-		
+		return userInvoice;
+
 	}
-	
-
-
 
 }
