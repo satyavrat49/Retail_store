@@ -1,8 +1,10 @@
 package com.retail.user;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class Customer implements User {
@@ -11,8 +13,7 @@ public class Customer implements User {
 
 	@Override
 	public BigDecimal getDiscount() {
-		LocalDate joiningDay = LocalDate.of(userCreationDate.getYear(), userCreationDate.getMonth(),
-				userCreationDate.getDay());
+		LocalDate joiningDay=	Instant.ofEpochMilli(userCreationDate.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
 		return new BigDecimal(Period.between(joiningDay, LocalDate.now()).getYears() > 2 ? "5" : "0");
 	}
 
