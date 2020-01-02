@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +17,8 @@ import com.retail.store.product.ProductFactory;
 import com.retail.user.User;
 import com.retail.user.UserFactory;
 
+import junit.framework.Assert;
+
 @RunWith(SpringRunner.class)
 class InvoiceServiceTest {
 	@Autowired
@@ -26,7 +27,7 @@ class InvoiceServiceTest {
 
 	@BeforeEach
 	public void init() {
-		 list = new ArrayList<Product>();
+		list = new ArrayList<Product>();
 		ProductFactory pf = new ProductFactory();
 		list.add(pf.getProduct("Milk", "100", true));
 		list.add(pf.getProduct("rice", "100", true));
@@ -38,7 +39,7 @@ class InvoiceServiceTest {
 	void createInvoiceForEmploye() {
 		UserFactory userFactory = new UserFactory();
 		User user = userFactory.getUser("bob", "employee", new Date());
-		invoiceService.createInvoice(user, list);
+		Assert.assertTrue("325$".equalsIgnoreCase(invoiceService.createInvoice(user, list).getTotalAmount()));
 	}
 
 	@Test
@@ -46,6 +47,7 @@ class InvoiceServiceTest {
 		UserFactory userFactory = new UserFactory();
 		User user = userFactory.getUser("sam", "affiliate", new Date());
 		invoiceService.createInvoice(user, list);
+		Assert.assertTrue("365$".equalsIgnoreCase(invoiceService.createInvoice(user, list).getTotalAmount()));
 	}
 
 	@Test
@@ -53,6 +55,7 @@ class InvoiceServiceTest {
 		UserFactory userFactory = new UserFactory();
 		User user = userFactory.getUser("om", "customer", new Date());
 		invoiceService.createInvoice(user, list);
+		Assert.assertTrue("380$".equalsIgnoreCase(invoiceService.createInvoice(user, list).getTotalAmount()));
 	}
 
 	@Test
@@ -60,7 +63,7 @@ class InvoiceServiceTest {
 		UserFactory userFactory = new UserFactory();
 		Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2016");
 		User user = userFactory.getUser("test", "customer", date1);
-		invoiceService.createInvoice(user, list);
+		Assert.assertTrue("375$".equalsIgnoreCase(invoiceService.createInvoice(user, list).getTotalAmount()));
 	}
 
 }
